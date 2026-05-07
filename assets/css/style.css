@@ -1,0 +1,56 @@
+/* Stil general */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f7f0;
+    color: #2f4f2f;
+    margin: 0;
+}
+
+/* Header */
+header {
+    background-color: #2e8b57;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Navigație */
+nav {
+    background-color: #3cb371;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    margin: 10px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Secțiuni */
+section {
+    background-color: white;
+    margin: 20px;
+    padding: 20px;
+    border-left: 5px solid #2e8b57;
+    border-radius: 5px;
+}
+
+/* Buton */
+button {
+    background-color: #228b22;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    background-color: #2e8b57;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}

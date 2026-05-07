@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementare Smart Layout - Zero Media Queries</title>
+    <style>
+        /* RESET ȘI VARIABILE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* 1. NAVIGAȚIE SMART (Sarcina 1) */
+        .smart-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000; /* Valoare mare pentru a rămâne deasupra grid-ului */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 10%;
+            
+            /* Glassmorphism */
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #2563eb;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        /* 2. GRID-UL DE SERVICII SELF-ADAPTIVE (Sarcina 2) */
+        .services-container {
+            padding: 60px 10%;
+        }
+
+        .services-container h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+
+        .services-grid {
+            display: grid;
+            /* LOGICA ZERO MEDIA QUERIES:
+               auto-fit: calculează automat numărul de coloane.
+               minmax(280px, 1fr): niciun card nu scade sub 280px.
+               1fr: Reprezintă o 'fracțiune' din spațiul disponibil. 
+               Contextul nostru: Dacă după alinierea cardurilor rămâne spațiu liber pe rând, 
+               acesta este distribuit egal tuturor elementelor care au 1fr, făcându-le să se lățească armonios. */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: #1e40af;
+        }
+
+        /* 3. SECȚIUNEA MISIUNE - INVERSARE FLUX (Sarcina 3) */
+        .mission-section {
+            padding: 80px 10%;
+            background-color: #ffffff;
+        }
+
+        .mission-container {
+            display: flex;
+            flex-wrap: wrap; /* Esențial pentru a permite wrap-ul pe mobil */
+            align-items: center;
+            gap: 50px;
+        }
+
+        .mission-text {
+            flex: 1 1 400px; /* Crește și scade, cu o bază de 400px */
+        }
+
+        .mission-image {
+            flex: 1 1 400px;
+        }
+
+        .mission-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 20px 20px 0px #dbeafe; /* Decorativ */
+        }
+
+        /* Provocarea Mobile: Inversarea ordinii prin proprietatea 'order' 
+           SAU flex-direction. Aici folosim flex-direction: column-reverse. */
+        @media (max-width: 890px) {
+            .mission-container {
+                flex-direction: column-reverse;
+            }
+            .mission-image {
+                flex: 1 1 100%;
+            }
+            .mission-text {
+                text-align: center;
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="smart-nav">
+        <div class="logo">GEN-Z TECH</div>
+        <ul class="nav-links">
+            <li><a href="#">Servicii</a></li>
+            <li><a href="#">Misiune</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="services-container">
+            <h2>Servicii Inteligente</h2>
+            <div class="services-grid">
+                <article class="card">
+                    <h3>Cloud Integration</h3>
+                    <p>Sisteme care scalează automat odată cu afacerea ta, fără downtime.</p>
+                </article>
+                <article class="card">
+                    <h3>AI Analytics</h3>
+                    <p>Folosim inteligența artificială pentru a prezice tendințele pieței tale.</p>
+                </article>
+                <article class="card">
+                    <h3>Cyber Security</h3>
+                    <p>Protecție avansată folosind protocoale de criptare de ultimă generație.</p>
+                </article>
+                <article class="card">
+                    <h3>UI/UX Modern</h3>
+                    <p>Interfețe care nu doar arată bine, ci sunt optimizate pentru conversie.</p>
+                </article>
+                <article class="card">
+                    <h3>Mobile Apps</h3>
+                    <p>Aplicații native construite pentru performanță maximă pe iOS și Android.</p>
+                </article>
+                <article class="card">
+                    <h3>Consultantă IT</h3>
+                    <p>Găsim soluția tehnică potrivită pentru orice problemă de business.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="mission-section">
+            <div class="mission-container">
+                <div class="mission-text">
+                    <h2>Misiunea Noastră</h2>
+                    <p>Credem într-un web unde codul este eficient și design-ul este invizibil. Ne concentrăm pe eliminarea barierelor tehnice dintre ideea ta și utilizatorul final.</p>
+                    <p style="margin-top: 20px;">Pe desktop, textul acesta este în stânga. Pe mobil, veți observa că imaginea de dedesubt trece automat deasupra acestui text datorită flex-direction: column-reverse.</p>
+                </div>
+                <div class="mission-image">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Work space">
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
