@@ -1,785 +1,205 @@
-<!-- Quality Assurance: Lighthouse Core Web Vitals audited by: Railean Anastasia | 19.05.2026 -->
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="EcoFermă Ta - Livrăm produse bio, legume, fructe proaspete și lactate naturale direct de la ferme locale în maxim 24 de ore.">
-    <title>EcoFermă Ta | Produse Bio & Livrare Rapidă</title>
-
-    <style>
-        /* Prevenire FOIT prin optimizarea fontului */
-        @font-face {
-            font-family: 'ArialCustom';
-            src: local('Arial');
-            font-display: swap;
-        }
-
-        body {
-            margin: 0;
-            font-family: 'ArialCustom', Arial, sans-serif;
-            background: #eaf7ee;
-        }
-
-        /* HEADER */
-        header {
-            background: #2f7d46;
-            color: white;
-            padding: 15px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header .logo {
-            line-height: 1.2;
-        }
-
-        header nav a {
-            color: white;
-            margin: 0 10px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* HERO - Îmbunătățire LCP prin optimizarea background-ului și text contrast */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=1200&q=80') center/cover;
-            color: white;
-            text-align: center;
-            padding: 90px 20px;
-        }
-
-        .hero h1 {
-            font-size: 38px;
-            background: rgba(0,0,0,0.65);
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 8px;
-            margin: 0 0 15px 0;
-        }
-
-        .hero p {
-            margin: 15px 0 0 0;
-            font-size: 18px;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
-        }
-
-        /* STATISTICI */
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            background: rgba(0,0,0,0.75);
-            color: white;
-            padding: 20px;
-            font-weight: bold;
-            margin-top: 30px;
-            border-radius: 8px;
-        }
-
-        /* SECTIUNI ANCORĂ */
-        section {
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        /* =========================================================================
-           1. SERVICII — STILURI DE BAZĂ & FALLBACK
-           ========================================================================= */
-        .services {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            background-color: #153e20; 
-            border-radius: 16px;
-        }
-
-        .card {
-            display: flex;
-            flex-direction: column;
-            flex: 1 1 calc(25% - 24px); 
-            min-width: 250px;
-            max-width: 280px;
-            background-color: #ffffff; 
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
-            box-sizing: border-box;
-            color: #1e3a1e;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Aspect-ratio explicit pentru eliminarea totală a CLS-ului */
-        .card img {
-            width: 100%;
-            height: 150px;
-            aspect-ratio: 4 / 3;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-
-        .card h3 {
-            margin: 0 0 10px 0;
-            font-size: 20px;
-            color: #153e20;
-        }
-
-        .card p {
-            margin: 0;
-            font-size: 14px;
-            line-height: 1.5;
-            color: #2b4c32;
-        }
-
-        /* =========================================================================
-           2. REFORMARE LA GRID
-           ========================================================================= */
-        @supports (display: grid) {
-            .services {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-                gap: 24px;
-            }
-            
-            .card {
-                flex: none;
-                max-width: none;
-                min-width: 0;
-            }
-        }
-
-        /* =========================================================================
-           3. SUBGRID FALLBACK PLAN
-           ========================================================================= */
-        @supports (grid-template-rows: subgrid) {
-            .services {
-                grid-auto-rows: max-content;
-            }
-            .card {
-                display: grid;
-                grid-row: span 3;
-                grid-template-rows: subgrid;
-                gap: 10px;
-            }
-            .card img {
-                margin-bottom: 0;
-            }
-        }
-
-        /* =========================================================================
-           4. REFORMARE OPTICĂ + AUDIT CONTRAST (Corectat pentru conformitate WCAG AA)
-           ========================================================================= */
-        @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
-            .services {
-                background: radial-gradient(circle at top left, #1e4d2b, #091a0e);
-            }
-
-            .card {
-                background-color: rgba(255, 255, 255, 0.08);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                border: 1px solid rgba(255, 255, 255, 0.25);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-                color: #ffffff;
-            }
-            
-            .card h3 {
-                color: #ffffff;
-                text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            }
-            
-            /* Corectat contrast de la #d1ebd7 la #eaf7ee pentru raport > 4.5:1 */
-            .card p {
-                color: #eaf7ee;
-            }
-        }
-
-        /* =========================================================================
-           5. THE "NOT" OPERATOR CHALLENGE
-           ========================================================================= */
-        @supports not (backdrop-filter: blur(20px)) {
-            .card {
-                border: 2px solid #2f7d46;
-                box-shadow: 0 15px 35px rgba(15, 62, 32, 0.25);
-                background-color: #ffffff;
-            }
-        }
-
-        /* ZIUA 11 — PERECHEA I: ADAPTIVE SHOWCASE */
-        .showcase-label {
-            text-align: center;
-            color: #4a7c59;
-            font-size: 0.78rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin: 40px 20px 0;
-            font-weight: bold;
-        }
-
-        .showcase-title {
-            text-align: center;
-            color: #1e3a1e;
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin: 8px 20px 0;
-        }
-
-        .adaptive-showcase {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            padding: 40px;
-            background-color: #0f172a;
-            margin: 20px;
-            border-radius: 16px;
-        }
-
-        .adaptive-card {
-            flex: 1 1 calc(33.333% - 20px);
-            min-width: 280px;
-            background-color: #1e293b;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 30px;
-            color: #f8fafc;
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .adaptive-card:hover {
-            transform: translateY(-6px);
-        }
-
-        .adaptive-card__header {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #86efac;
-            margin-bottom: 12px;
-            letter-spacing: 0.05em;
-        }
-
-        .adaptive-card__body {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #cbd5e1;
-            margin: 0;
-        }
-
-        @supports (display: grid) {
-            .adaptive-showcase {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 30px;
-            }
-
-            .adaptive-card {
-                flex: none;
-                min-width: 0;
-            }
-        }
-
-        @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
-            .adaptive-card {
-                background-color: rgba(255, 255, 255, 0.03);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                border: 1px solid rgba(255, 255, 255, 0.15);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            }
-
-            .adaptive-showcase {
-                background: radial-gradient(circle at top left, #1e1b4b, #090514);
-            }
-        }
-
-        @supports not (backdrop-filter: blur(10px)) {
-            .adaptive-card {
-                background-color: #1e293b;
-                box-shadow:
-                    0 2px 0 rgba(255, 255, 255, 0.07) inset,
-                    0 20px 50px rgba(0, 0, 0, 0.7),
-                    0 4px 15px rgba(0, 0, 0, 0.5);
-                border: 1px solid rgba(255, 255, 255, 0.12);
-                background-image: linear-gradient(
-                    135deg,
-                    rgba(255, 255, 255, 0.05) 0%,
-                    transparent 60%
-                );
-            }
-        }
-
-        /* SECTIUNEA DESPRE */
-        #despre {
-            background: #dff5e5;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        #despre h2 {
-            font-size: 32px;
-            color: #1e4d2b;
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-
-        #despre .despre-intro {
-            max-width: 800px;
-            margin: 0 auto 40px;
-            font-size: 17px;
-            line-height: 1.7;
-            color: #333;
-        }
-
-        /* VIDEO WRAPPER & CLS PREVENTION */
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto 50px;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.18);
-        }
-
-        .video-wrapper::before {
-            content: '';
-            display: block;
-            padding-top: 56.25%;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* HARTA WRAPPER & CLS PREVENTION */
-        .map-wrapper {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.18);
-        }
-
-        .map-wrapper iframe {
-            width: 100%;
-            height: 400px;
-            border: 0;
-            display: block;
-        }
-
-        .map-label {
-            margin-top: 14px;
-            font-size: 15px;
-            color: #2f7d46;
-            font-weight: bold;
-        }
-
-        .despre-separator {
-            width: 60px;
-            height: 4px;
-            background: #2f7d46;
-            border-radius: 2px;
-            margin: 0 auto 40px;
-        }
-
-        /* CONTACT LAYOUT */
-        .contact-layout {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-            max-width: 1200px;
-            margin: auto;
-            padding: 40px 20px;
-        }
-
-        .form-box,
-        .info-box {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        fieldset {
-            border: 2px solid #cce5d4;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            padding: 20px;
-        }
-
-        legend {
-            font-weight: bold;
-            color: #2f7d46;
-        }
-
-        /* FLOATING LABELS */
-        .floating-group {
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-        .floating-group input,
-        .floating-group textarea,
-        .floating-group select {
-            width: 100%;
-            padding: 18px 10px 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 15px;
-            background: white;
-            outline: none;
-            box-sizing: border-box;
-        }
-
-        .floating-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .floating-group label {
-            position: absolute;
-            left: 12px;
-            top: 16px;
-            background: white;
-            padding: 0 5px;
-            color: #555;
-            transition: 0.3s;
-            pointer-events: none;
-        }
-
-        .floating-group input:focus + label,
-        .floating-group input:not(:placeholder-shown) + label,
-        .floating-group textarea:focus + label,
-        .floating-group textarea:not(:placeholder-shown) + label,
-        .floating-group select:focus + label,
-        .floating-group select:valid + label {
-            top: -10px;
-            left: 10px;
-            font-size: 12px;
-            color: #2f7d46;
-        }
-
-        .floating-group input:focus,
-        .floating-group textarea:focus,
-        .floating-group select:focus {
-            border-color: #2f7d46;
-        }
-
-        .error-msg {
-            display: none;
-            color: #d32f2f;
-            font-size: 12px;
-            margin-top: 5px;
-            text-align: left;
-        }
-
-        .floating-group input:invalid:focus ~ .error-msg,
-        .floating-group textarea:invalid:focus ~ .error-msg,
-        .floating-group select:invalid:focus ~ .error-msg {
-            display: block;
-        }
-
-        .form-box button {
-            width: 100%;
-            padding: 12px;
-            background: #2f7d46;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            position: relative;
-            overflow: hidden;
-            transition: 0.3s;
-        }
-
-        .form-box button:hover {
-            background: #1f5d31;
-            transform: scale(1.03);
-        }
-
-        .info-box iframe {
-            width: 100%;
-            height: 300px;
-            border: 0;
-            border-radius: 10px;
-        }
-
-        .info-box p {
-            text-align: left;
-        }
-
-        /* STRUCTURĂ FOOTER */
-        footer {
-            background: #1e4d2b;
-            color: white;
-            text-align: center;
-            padding: 25px;
-        }
-
-        .footer-social-links {
-            margin-top: 12px;
-        }
-
-        .footer-social-links a {
-            color: #a3e635;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-
-        .footer-social-links a:hover {
-            color: #ffffff;
-        }
-
-        /* MEDIA QUERIES */
-        @media (max-width: 900px) {
-            .card {
-                flex: 1 1 calc(50% - 24px);
-                max-width: calc(50% - 12px);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .card {
-                flex: 1 1 100%;
-                max-width: 100%;
-            }
-
-            .contact-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .stats {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            header nav {
-                margin-top: 10px;
-            }
-
-            .map-wrapper iframe {
-                height: 260px;
-            }
-
-            #despre h2 {
-                font-size: 24px;
-            }
-
-            .adaptive-card {
-                min-width: 0;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="EcoFermă Ta - Livrăm produse bio, legume, fructe proaspete și lactate naturale direct de la ferme locale în maxim 24 de ore.">
+<title>EcoFermă Ta | Produse Bio & Livrare Rapidă</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#eaf7ee;color:#1e3a1e}
+header{background:#2f7d46;color:white;padding:15px 25px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+header .logo{line-height:1.2}
+header nav a{color:white;margin:0 10px;text-decoration:none;font-weight:bold;cursor:pointer}
+header nav a:hover{text-decoration:underline}
+.hero{background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url('https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=1200&q=80') center/cover;color:white;text-align:center;padding:90px 20px}
+.hero h1{font-size:32px;background:rgba(0,0,0,0.65);display:inline-block;padding:10px 20px;border-radius:8px;margin:0 0 15px}
+.hero p{font-size:18px;text-shadow:1px 1px 4px rgba(0,0,0,0.8)}
+.stats{display:flex;justify-content:space-around;flex-wrap:wrap;gap:10px;background:rgba(0,0,0,0.75);color:white;padding:20px;font-weight:bold;margin-top:30px;border-radius:8px}
+section{padding:50px 20px;text-align:center}
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;max-width:1100px;margin:0 auto;padding:30px;background:#153e20;border-radius:16px}
+.card{background:white;border:1px solid rgba(0,0,0,0.1);border-radius:12px;padding:20px;box-shadow:0 4px 10px rgba(0,0,0,0.05);transition:transform 0.3s ease;color:#1e3a1e}
+.card:hover{transform:translateY(-5px)}
+.card img{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:12px}
+.card h3{font-size:18px;margin:0 0 8px;color:#153e20}
+.card p{font-size:14px;line-height:1.5;color:#2b4c32}
+#despre{background:#dff5e5;padding:60px 20px;text-align:center}
+#despre h2{font-size:28px;color:#1e4d2b;margin-bottom:10px}
+.despre-separator{width:60px;height:4px;background:#2f7d46;border-radius:2px;margin:0 auto 30px}
+.despre-intro{max-width:700px;margin:0 auto 30px;font-size:16px;line-height:1.7;color:#333}
+.map-wrapper{width:100%;max-width:700px;margin:0 auto;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.18)}
+.map-wrapper iframe{width:100%;height:350px;border:0;display:block}
+.map-label{margin-top:12px;font-size:14px;color:#2f7d46;font-weight:bold}
+.contact-layout{display:grid;grid-template-columns:2fr 1fr;gap:20px;max-width:1000px;margin:auto;padding:40px 20px}
+@media(max-width:700px){.contact-layout{grid-template-columns:1fr}.stats{flex-direction:column}header{flex-direction:column;text-align:center}}
+.form-box,.info-box{background:white;padding:25px;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.1)}
+fieldset{border:2px solid #cce5d4;border-radius:8px;margin-bottom:18px;padding:18px}
+legend{font-weight:bold;color:#2f7d46}
+.floating-group{position:relative;margin-bottom:22px}
+.floating-group input,.floating-group textarea,.floating-group select{width:100%;padding:18px 10px 8px;border:1px solid #ccc;border-radius:8px;font-size:14px;background:white;outline:none}
+.floating-group textarea{min-height:100px;resize:vertical}
+.floating-group label{position:absolute;left:12px;top:15px;background:white;padding:0 4px;color:#555;transition:0.25s;pointer-events:none;font-size:14px}
+.floating-group input:focus+label,.floating-group input:not(:placeholder-shown)+label,.floating-group textarea:focus+label,.floating-group textarea:not(:placeholder-shown)+label,.floating-group select:focus+label,.floating-group select:valid+label{top:-10px;left:10px;font-size:11px;color:#2f7d46}
+.floating-group input:focus,.floating-group textarea:focus,.floating-group select:focus{border-color:#2f7d46}
+.submit-btn{width:100%;padding:12px;background:#2f7d46;color:white;border:none;border-radius:8px;cursor:pointer;font-size:15px;transition:background 0.2s,transform 0.15s}
+.submit-btn:hover{background:#1f5d31;transform:scale(1.02)}
+.submit-btn:active{transform:scale(0.98)}
+footer{background:#1e4d2b;color:white;text-align:center;padding:25px}
+.footer-social-links{margin-top:10px}
+.footer-social-links a{color:#a3e635;margin:0 12px;text-decoration:none;font-weight:bold;font-size:14px}
+.footer-social-links a:hover{color:white}
+#toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(80px);background:#2f7d46;color:white;padding:12px 24px;border-radius:8px;font-size:15px;opacity:0;transition:all 0.4s ease;z-index:999;pointer-events:none}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.beneficii p{font-size:16px;line-height:2;color:#1e3a1e}
+</style>
 </head>
-
 <body>
 
+<div id="toast">✔ Mesajul a fost trimis!</div>
+
 <header>
-    <div class="logo">
-        <strong>🌿 EcoFermă Ta</strong><br>
-        <small>Sănătate din natură, direct la tine</small>
-    </div>
-    <nav>
-        <a href="#">Acasă</a>
-        <a href="#">Produse</a>
-        <a href="#despre">Despre</a>
-        <a href="#">Livrare</a>
-        <a href="#">Contact</a>
-    </nav>
+  <div class="logo"><strong>🌿 EcoFermă Ta</strong><br><small>Sănătate din natură, direct la tine</small></div>
+  <nav>
+    <a onclick="smoothScroll('top')">Acasă</a>
+    <a onclick="smoothScroll('servicii')">Produse</a>
+    <a onclick="smoothScroll('despre')">Despre</a>
+    <a onclick="smoothScroll('contact')">Contact</a>
+  </nav>
 </header>
 
-<!-- HERO -->
-<main class="hero">
+<div id="top">
+  <main class="hero">
     <h1>Prospețime naturală direct la ușa ta</h1>
     <p>Legume, fructe și produse lactate BIO de la ferme locale</p>
-
     <div class="stats">
-        <div>1000+ Clienți</div>
-        <div>24h Livrare</div>
-        <div>150+ Ferme</div>
+      <div>1000+ Clienți</div>
+      <div>24h Livrare</div>
+      <div>150+ Ferme</div>
     </div>
-</main>
+  </main>
+</div>
 
-<!-- SERVICII -->
-<section>
-    <h2>Ce oferim</h2>
-    <div class="services">
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=800&q=80" alt="Legume proaspete BIO cultivate local fără pesticide" width="280" height="150" loading="lazy">
-            <h3>🥕 Legume BIO</h3>
-            <p>Legume cultivate natural, fără pesticide, direct din ferme locale.</p>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=800&q=80" alt="Fructe proaspete de sezon culese manual" width="280" height="150" loading="lazy">
-            <h3>🍎 Fructe proaspete</h3>
-            <p>Fructe sănătoase, culese zilnic pentru prospețime maximă.</p>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=800&q=80" alt="Lactate proaspete și brânzeturi tradiționale" width="280" height="150" loading="lazy">
-            <h3>🥛 Lactate naturale</h3>
-            <p>Lapte, brânzeturi și iaurturi fără aditivi sau conservanți.</p>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=800&q=80" alt="Mașină frigorifică pentru livrare rapidă la domiciliu" width="280" height="150" loading="lazy">
-            <h3>🚚 Livrare rapidă</h3>
-            <p>Comenzile ajung la tine în maxim 24 de ore.</p>
-        </div>
+<section id="servicii">
+  <h2>Ce oferim</h2>
+  <div class="services">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=70" alt="Legume BIO" loading="lazy">
+      <h3>🥕 Legume BIO</h3>
+      <p>Legume cultivate natural, fără pesticide, direct din ferme locale.</p>
     </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=600&q=70" alt="Fructe proaspete" loading="lazy">
+      <h3>🍎 Fructe proaspete</h3>
+      <p>Fructe sănătoase, culese zilnic pentru prospețime maximă.</p>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=600&q=70" alt="Lactate naturale" loading="lazy">
+      <h3>🥛 Lactate naturale</h3>
+      <p>Lapte, brânzeturi și iaurturi fără aditivi sau conservanți.</p>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=600&q=70" alt="Livrare rapidă" loading="lazy">
+      <h3>🚚 Livrare rapidă</h3>
+      <p>Comenzile ajung la tine în maxim 24 de ore.</p>
+    </div>
+  </div>
 </section>
 
-<!-- ADAPTIVE SHOWCASE -->
-<div class="showcase-label">Ziua 11 — Progressive Enhancement Demo</div>
-<div class="showcase-title">Sistem Adaptiv cu @supports</div>
-
-<section class="adaptive-showcase">
-    <div class="adaptive-card">
-        <div class="adaptive-card__header">Modulul 01</div>
-        <p class="adaptive-card__body">Sistem de interfață rezistent la erori și compatibil retroactiv.</p>
-    </div>
-    <div class="adaptive-card">
-        <div class="adaptive-card__header">Modulul 02</div>
-        <p class="adaptive-card__body">Fallback automat la nivel de layout engine prin Feature Queries.</p>
-    </div>
-    <div class="adaptive-card">
-        <div class="adaptive-card__header">Modulul 03</div>
-        <p class="adaptive-card__body">Suport complet pentru randare pe GPU sau CPU legacy.</p>
-    </div>
-</section>
-
-<!-- SECȚIUNEA #DESPRE -->
 <section id="despre">
-    <h2>🌿 Despre EcoFermă Ta</h2>
-    <div class="despre-separator"></div>
-
-    <p class="despre-intro">
-        EcoFermă Ta este o inițiativă locală care aduce produse bio direct de la fermieri la consumatori.
-        Susținem agricultura ecologică și micii producători locali.
-    </p>
-
-    <h3 style="color:#1e4d2b; margin-bottom:20px;">📽️ Video de Prezentare</h3>
-    <div class="video-wrapper">
-        <iframe
-            src="https://player.vimeo.com/video/337628564?h=79a36178cc"
-            title="EcoFermă Ta – Produse Bio"
-            width="800"
-            height="450"
-            sandbox="allow-scripts allow-same-origin allow-presentation"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-        </iframe>
-    </div>
-
-    <h3 style="color:#1e4d2b; margin: 40px 0 20px;">📍 Unde ne găsești</h3>
-    <div class="map-wrapper">
-        <iframe
-            src="https://maps.google.com/maps?q=Chisinau,Moldova&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
-            loading="lazy"
-            width="800"
-            height="400"
-            sandbox="allow-scripts allow-same-origin"
-            allowfullscreen
-            title="Locația EcoFermă Ta – Chișinău">
-        </iframe>
-    </div>
-    <p class="map-label">📌 Chișinău, Moldova &nbsp;|&nbsp; +373 67701030 &nbsp;|&nbsp; contact@ecofermata.md</p>
+  <h2>🌿 Despre EcoFermă Ta</h2>
+  <div class="despre-separator"></div>
+  <p class="despre-intro">EcoFermă Ta este o inițiativă locală care aduce produse bio direct de la fermieri la consumatori. Susținem agricultura ecologică și micii producători locali.</p>
+  <div class="map-wrapper">
+    <iframe
+      src="https://maps.google.com/maps?q=Chisinau,Moldova&t=&z=13&ie=UTF8&iwloc=&output=embed"
+      loading="lazy"
+      allowfullscreen
+      title="Locația EcoFermă Ta">
+    </iframe>
+  </div>
+  <p class="map-label">📌 Chișinău, Moldova &nbsp;|&nbsp; +373 67701030 &nbsp;|&nbsp; contact@ecofermata.md</p>
 </section>
 
-<!-- BENEFICII -->
-<section>
-    <h2>De ce să alegi noi?</h2>
-    <p>
-        ✔ Produse 100% naturale<br>
-        ✔ Sprijini fermierii locali<br>
-        ✔ Livrare rapidă la domiciliu
-    </p>
+<section class="beneficii">
+  <h2>De ce să ne alegi?</h2>
+  <p>✔ Produse 100% naturale<br>✔ Sprijini fermierii locali<br>✔ Livrare rapidă la domiciliu</p>
 </section>
 
-<!-- CONTACT LAYOUT -->
-<section class="contact-layout">
+<section id="contact" style="padding:0 0 50px">
+  <div class="contact-layout">
     <div class="form-box">
-        <h2>Trimite un mesaj</h2>
-        <form>
-            <fieldset>
-                <legend>Date personale</legend>
-                <div class="floating-group">
-                    <input type="text" id="name" name="name" placeholder=" " required autocomplete="name">
-                    <label for="name">Nume complet</label>
-                    <span class="error-msg">Introdu un nume valid</span>
-                </div>
-                <div class="floating-group">
-                    <input type="email" id="email" name="email" placeholder=" " required autocomplete="email">
-                    <label for="email">Email</label>
-                    <span class="error-msg">Introdu un email valid</span>
-                </div>
-                <div class="floating-group">
-                    <input type="tel" id="phone" name="phone" placeholder=" " required autocomplete="tel">
-                    <label for="phone">Telefon</label>
-                    <span class="error-msg">Introdu numărul de telefon</span>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>Detalii mesaj</legend>
-                <div class="floating-group">
-                    <select id="subject" name="subject" required>
-                        <option value="" disabled selected></option>
-                        <option>Comandă produse</option>
-                        <option>Informații</option>
-                        <option>Livrare</option>
-                    </select>
-                    <label for="subject">Subiect</label>
-                    <span class="error-msg">Selectează un subiect</span>
-                </div>
-                <div class="floating-group">
-                    <textarea id="message" name="message" maxlength="250" placeholder=" " required></textarea>
-                    <label for="message">Mesajul tău</label>
-                </div>
-            </fieldset>
-            <button type="submit">Trimite</button>
-        </form>
+      <h2>Trimite un mesaj</h2>
+      <form id="contactForm">
+        <fieldset>
+          <legend>Date personale</legend>
+          <div class="floating-group">
+            <input type="text" id="name" placeholder=" " required autocomplete="name">
+            <label for="name">Nume complet</label>
+          </div>
+          <div class="floating-group">
+            <input type="email" id="email" placeholder=" " required autocomplete="email">
+            <label for="email">Email</label>
+          </div>
+          <div class="floating-group">
+            <input type="tel" id="phone" placeholder=" " required autocomplete="tel">
+            <label for="phone">Telefon</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Detalii mesaj</legend>
+          <div class="floating-group">
+            <select id="subject" required>
+              <option value="" disabled selected></option>
+              <option>Comandă produse</option>
+              <option>Informații</option>
+              <option>Livrare</option>
+            </select>
+            <label for="subject">Subiect</label>
+          </div>
+          <div class="floating-group">
+            <textarea id="message" maxlength="250" placeholder=" " required></textarea>
+            <label for="message">Mesajul tău</label>
+          </div>
+        </fieldset>
+        <button type="submit" class="submit-btn">Trimite</button>
+      </form>
     </div>
-
     <div class="info-box">
-        <h2>Informații suplimentare</h2>
-        <p>Program de lucru: Luni - Vineri: 08:00 - 18:00</p>
+      <h2>Informații</h2>
+      <p style="margin-top:12px;line-height:1.8;font-size:15px;text-align:left">
+        <strong>Program:</strong><br>
+        Luni – Vineri: 08:00 – 18:00<br><br>
+        <strong>Telefon:</strong><br>
+        +373 67701030<br><br>
+        <strong>Email:</strong><br>
+        contact@ecofermata.md
+      </p>
     </div>
+  </div>
 </section>
 
 <footer>
-    <p>&copy; 2026 EcoFermă Ta. Toate drepturile rezervate.</p>
-    <div class="footer-social-links">
-        <a href="#" rel="noopener noreferrer">Facebook</a>
-        <a href="#" rel="noopener noreferrer">Instagram</a>
-    </div>
+  <p>© 2026 EcoFermă Ta. Toate drepturile rezervate.</p>
+  <div class="footer-social-links">
+    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
+    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+  </div>
 </footer>
+
+<script>
+function smoothScroll(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+  this.reset();
+});
+</script>
 
 </body>
 </html>
